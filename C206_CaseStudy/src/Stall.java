@@ -6,7 +6,7 @@ public class Stall {
     private String name;
     private String cuisine;
     private String location;
-    private List<String> menu;
+    private List<MenuItem> menu;
 
     public Stall(String name, String cuisine, String location) {
         this.name = name;
@@ -27,19 +27,19 @@ public class Stall {
         return location;
     }
 
-    public void addMenuItem(String item) {
+    public void addMenuItem(String itemName, double itemPrice) {
+        MenuItem item = new MenuItem(itemName, itemPrice);
         menu.add(item);
     }
 
-    public void removeMenuItem(String item) {
-        menu.remove(item);
+    public void removeMenuItem(String itemName) {
+        menu.removeIf(item -> item.getName().equalsIgnoreCase(itemName));
     }
 
-    public List<String> getMenu() {
+    public List<MenuItem> getMenu() {
         return menu;
     }
 
-    // Make the methods public and static
     public static void addNewStall(List<Stall> stalls, Scanner scanner) {
         System.out.print("Enter Stall Name: ");
         String name = scanner.nextLine();
@@ -52,7 +52,7 @@ public class Stall {
 
         Stall newStall = new Stall(name, cuisine, location);
 
-        // Add Menu Items
+        // Add Menu Items with Prices
         boolean addMoreItems = true;
         while (addMoreItems) {
             System.out.print("Enter Menu Item (or type 'done' to finish adding menu items): ");
@@ -60,7 +60,9 @@ public class Stall {
             if (item.equalsIgnoreCase("done")) {
                 addMoreItems = false;
             } else {
-                newStall.addMenuItem(item);
+                System.out.print("Enter Price for " + item + ": ");
+                double price = Double.parseDouble(scanner.nextLine());
+                newStall.addMenuItem(item, price);
             }
         }
 
@@ -79,8 +81,8 @@ public class Stall {
                 System.out.println("Cuisine: " + stall.getCuisine());
                 System.out.println("Location: " + stall.getLocation());
                 System.out.println("Menu:");
-                for (String item : stall.getMenu()) {
-                    System.out.println("- " + item);
+                for (MenuItem item : stall.getMenu()) {
+                    System.out.println("- " + item.getName() + " ($" + item.getPrice() + ")");
                 }
                 System.out.println("------------");
             }
@@ -105,6 +107,24 @@ public class Stall {
             System.out.println("Stall with name " + stallNameToDelete + " has been deleted.");
         } else {
             System.out.println("Stall with name " + stallNameToDelete + " not found.");
+        }
+    }
+
+    public static class MenuItem {
+        private String name;
+        private double price;
+
+        public MenuItem(String name, double price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getPrice() {
+            return price;
         }
     }
 }
