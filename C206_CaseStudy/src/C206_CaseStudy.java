@@ -40,6 +40,26 @@ public class C206_CaseStudy {
         } else {
             System.out.println("Invalid choice. Logging in as guest.");
         }
+     // Create some example stalls
+        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A");
+        stall1.addMenuItem("Noodle Soup");
+        stall1.addMenuItem("Fried Dumplings");
+        stall1.addMenuItem("Spring Rolls");
+
+        Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B");
+        stall2.addMenuItem("Margherita Pizza");
+        stall2.addMenuItem("Pepperoni Pizza");
+        stall2.addMenuItem("Hawaiian Pizza");
+
+        Stall stall3 = new Stall("Burger Junction", "American", "Food Court C");
+        stall3.addMenuItem("Classic Cheeseburger");
+        stall3.addMenuItem("BBQ Bacon Burger");
+        stall3.addMenuItem("Veggie Burger");
+
+        // Add the stalls to the list of stalls
+        stalls.add(stall1);
+        stalls.add(stall2);
+        stalls.add(stall3);
 
         boolean exitProgram = false;
 
