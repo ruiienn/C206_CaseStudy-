@@ -7,7 +7,7 @@ public class C206_CaseStudy {
     private static List<Stall> stalls = new ArrayList<>();
     private static List<User> users = new ArrayList<>();
     private static Queue customerQueue = new Queue();
-    private static User loggedInUser = null;
+    private static String loggedInUser = "Guest"; // Default to "Guest" if no user is logged in
 
     public static void main(String[] args) {
         User testUser = new User("testuser", "testpassword", "customer");
@@ -20,15 +20,16 @@ public class C206_CaseStudy {
 
         if (loginChoice.equalsIgnoreCase("yes")) {
             // Perform login
-            loggedInUser = login(users, scanner);
+            String loggedInUserName = login(users, scanner);
 
-            if (loggedInUser == null) {
+            if (loggedInUserName == null) {
                 System.out.println("Login failed.");
                 String R = readString("Do you want to register an account? (yes/no):", scanner);
                 if (R.equalsIgnoreCase("yes")) {
                     User.createNewUser(users, scanner);
                 }
             } else {
+                loggedInUser = loggedInUserName; // Set the loggedInUser to the customer name
                 System.out.println("Login successful.");
             }
         } else if (loginChoice.equalsIgnoreCase("no")) {
@@ -36,22 +37,23 @@ public class C206_CaseStudy {
             if (R.equalsIgnoreCase("yes")) {
                 User.createNewUser(users, scanner);
             }
-            System.out.println("Logging in as guest.");
+            System.out.println("Logging in as customer.");
         } else {
             System.out.println("Invalid choice. Logging in as guest.");
         }
-     // Create some example stalls
-        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A");
+
+        // Create some example stalls
+        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A",1);
         stall1.addMenuItem("Noodle Soup",13.00);
         stall1.addMenuItem("Fried Dumplings",13.00);
         stall1.addMenuItem("Spring Rolls",13.00);
 
-        Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B");
+        Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B",2);
         stall2.addMenuItem("Margherita Pizza",13.00);
         stall2.addMenuItem("Pepperoni Pizza",13.00);
         stall2.addMenuItem("Hawaiian Pizza",13.00);
 
-        Stall stall3 = new Stall("Burger Junction", "American", "Food Court C");
+        Stall stall3 = new Stall("Burger Junction", "American", "Food Court C",3);
         stall3.addMenuItem("Classic Cheeseburger",13.00);
         stall3.addMenuItem("BBQ Bacon Burger",13.00);
         stall3.addMenuItem("Veggie Burger",13.00);
@@ -92,6 +94,7 @@ public class C206_CaseStudy {
 
             switch (choice) {
                 case 1:
+                	Stall.viewAllStalls(stalls);
                     Order.createNewOrder(orders, scanner);
                     break;
                 case 2:
@@ -141,7 +144,7 @@ public class C206_CaseStudy {
     }
 
     // Helper method to perform login
-    public static User login(List<User> users, Scanner scanner) {
+    public static String login(List<User> users, Scanner scanner) {
         System.out.print("Enter Username: ");
         String username = scanner.nextLine();
 
@@ -150,7 +153,7 @@ public class C206_CaseStudy {
 
         for (User user : users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return user;
+                return user.getUsername();
             }
         }
 
@@ -158,7 +161,7 @@ public class C206_CaseStudy {
     }
 
     // Helper method to check user authorization
-    public static boolean isAuthorized(User user, int choice) {
+    public static boolean isAuthorized(String username, int choice) {
         // Implement your logic for user authorization based on the role and menu choices.
         // For example, you can check if the user's role is "canteen_manager" to allow certain operations.
         // Return true if the user is authorized, otherwise return false.
