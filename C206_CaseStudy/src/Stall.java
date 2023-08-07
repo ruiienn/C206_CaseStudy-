@@ -3,128 +3,165 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Stall {
-    private String name;
-    private String cuisine;
-    private String location;
-    private List<MenuItem> menu;
+	private String name;
+	private String cuisine;
+	private String location;
+	private int stallId; // New attribute - stallIds
+	private List<MenuItem> menu;
 
-    public Stall(String name, String cuisine, String location) {
-        this.name = name;
-        this.cuisine = cuisine;
-        this.location = location;
-        this.menu = new ArrayList<>();
-    }
+	public Stall(String name, String cuisine, String location, int stallId) {
+		this.name = name;
+		this.cuisine = cuisine;
+		this.location = location;
+		this.stallId = stallId; // Initialize stallId
+		this.menu = new ArrayList<>();
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getCuisine() {
-        return cuisine;
-    }
+	public String getCuisine() {
+		return cuisine;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	public String getLocation() {
+		return location;
+	}
 
-    public void addMenuItem(String itemName, double itemPrice) {
-        MenuItem item = new MenuItem(itemName, itemPrice);
-        menu.add(item);
-    }
+	public int getStallId() {
+		return stallId; // New getter method for stallId
+	}
 
-    public void removeMenuItem(String itemName) {
-        menu.removeIf(item -> item.getName().equalsIgnoreCase(itemName));
-    }
+	public void addMenuItem(String itemName, double itemPrice) {
+		MenuItem item = new MenuItem(itemName, itemPrice);
+		menu.add(item);
+	}
 
-    public List<MenuItem> getMenu() {
-        return menu;
-    }
+	public void removeMenuItem(String itemName) {
+		menu.removeIf(item -> item.getName().equalsIgnoreCase(itemName));
+	}
 
-    public static void addNewStall(List<Stall> stalls, Scanner scanner) {
-        System.out.print("Enter Stall Name: ");
-        String name = scanner.nextLine();
+	public List<MenuItem> getMenu() {
+		return menu;
+	}
 
-        System.out.print("Enter Cuisine: ");
-        String cuisine = scanner.nextLine();
+	public static void addNewStall(List<Stall> stalls, Scanner scanner) {
+		System.out.print("Enter Stall Name: ");
+		String name = scanner.nextLine();
 
-        System.out.print("Enter Location: ");
-        String location = scanner.nextLine();
+		System.out.print("Enter Cuisine: ");
+		String cuisine = scanner.nextLine();
 
-        Stall newStall = new Stall(name, cuisine, location);
+		System.out.print("Enter Location: ");
+		String location = scanner.nextLine();
 
-        // Add Menu Items with Prices
-        boolean addMoreItems = true;
-        while (addMoreItems) {
-            System.out.print("Enter Menu Item (or type 'done' to finish adding menu items): ");
-            String item = scanner.nextLine();
-            if (item.equalsIgnoreCase("done")) {
-                addMoreItems = false;
-            } else {
-                System.out.print("Enter Price for " + item + ": ");
-                double price = Double.parseDouble(scanner.nextLine());
-                newStall.addMenuItem(item, price);
-            }
-        }
+		System.out.print("Enter Stall Id: ");
+		int stallId = Integer.parseInt(scanner.nextLine()); // Parse the input as an integer
 
-        stalls.add(newStall);
+		Stall newStall = new Stall(name, cuisine, location, stallId); // Pass the stallId to the constructor
 
-        System.out.println("New stall added successfully!");
-    }
+		// Add Menu Items with Prices
+		boolean addMoreItems = true;
+		while (addMoreItems) {
+			System.out.print("Enter Menu Item (or type 'done' to finish adding menu items): ");
+			String item = scanner.nextLine();
+			if (item.equalsIgnoreCase("done")) {
+				addMoreItems = false;
+			} else {
+				System.out.print("Enter Price for " + item + ": ");
+				double price = Double.parseDouble(scanner.nextLine());
+				newStall.addMenuItem(item, price);
+			}
+		}
 
-    public static void viewAllStalls(List<Stall> stalls) {
-        System.out.println("--- All Stalls ---");
-        if (stalls.isEmpty()) {
-            System.out.println("No stalls found.");
-        } else {
-            for (Stall stall : stalls) {
-                System.out.println("Stall Name: " + stall.getName());
-                System.out.println("Cuisine: " + stall.getCuisine());
-                System.out.println("Location: " + stall.getLocation());
-                System.out.println("Menu:");
-                for (MenuItem item : stall.getMenu()) {
-                    System.out.println("- " + item.getName() + " ($" + item.getPrice() + ")");
-                }
-                System.out.println("------------");
-            }
-        }
-    }
+		stalls.add(newStall);
 
-    public static void deleteExistingStall(List<Stall> stalls, Scanner scanner) {
-        System.out.print("Enter the Stall Name to delete: ");
-        String stallNameToDelete = scanner.nextLine();
+		System.out.println("New stall added successfully!");
+	}
 
-        Stall stallToDelete = null;
+	public static void viewAllStalls(List<Stall> stalls) {
+		Helper.line(45, "=");
+		System.out.println("--- All Stalls ---");
+		if (stalls.isEmpty()) {
+			System.out.println("No stalls found.");
+		} else {
+			for (Stall stall : stalls) {
+				System.out.println("Stall Name: " + stall.getName());
+				System.out.println("Cuisine: " + stall.getCuisine());
+				System.out.println("Location: " + stall.getLocation());
+				System.out.println("Stall Id: " + stall.getStallId()); // Print the stallId
+				System.out.println("");
+				System.out.println("Menu:");
+				for (MenuItem item : stall.getMenu()) {
+					System.out.println("= " + item.getName() + " ($" + item.getPrice() + ")");
+				}
+				Helper.line(45, "=");
+			}
+		}
+	}
 
-        for (Stall stall : stalls) {
-            if (stall.getName().equalsIgnoreCase(stallNameToDelete)) {
-                stallToDelete = stall;
-                break;
-            }
-        }
+	public static void deleteExistingStall(List<Stall> stalls, Scanner scanner) {
+		System.out.print("Enter the Stall Name to delete: ");
+		String stallNameToDelete = scanner.nextLine();
 
-        if (stallToDelete != null) {
-            stalls.remove(stallToDelete);
-            System.out.println("Stall with name " + stallNameToDelete + " has been deleted.");
-        } else {
-            System.out.println("Stall with name " + stallNameToDelete + " not found.");
-        }
-    }
+		Stall stallToDelete = null;
 
-    public static class MenuItem {
-        private String name;
-        private double price;
+		for (Stall stall : stalls) {
+			if (stall.getName().equalsIgnoreCase(stallNameToDelete)) {
+				stallToDelete = stall;
+				break;
+			}
+		}
 
-        public MenuItem(String name, double price) {
-            this.name = name;
-            this.price = price;
-        }
+		if (stallToDelete != null) {
+			stalls.remove(stallToDelete);
+			System.out.println("Stall with name " + stallNameToDelete + " has been deleted.");
+		} else {
+			System.out.println("Stall with name " + stallNameToDelete + " not found.");
+		}
+	}
 
-        public String getName() {
-            return name;
-        }
+	public double calculateOrderAmount(String itemName, int quantity) {
+		double totalAmount = 0.0;
+		MenuItem item = findMenuItemByName(itemName);
+		if (item != null) {
+			totalAmount = item.getPrice() * quantity;
+		}
+		return totalAmount;
+	}
 
-        public double getPrice() {
-            return price;
-        }
-    }
+	private MenuItem findMenuItemByName(String itemName) {
+		for (MenuItem item : menu) {
+			if (item.getName().equalsIgnoreCase(itemName)) {
+				return item;
+			}
+		}
+		return null;
+	}
+
+	public static class MenuItem {
+		private String name;
+		private double price;
+
+		public MenuItem(String name, double price) {
+			this.name = name;
+			this.price = price;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public double getPrice() {
+			return price;
+		}
+	}
+	public double getTotalMenuCost() {
+		double totalCost = 0.0;
+		for (MenuItem item : menu) {
+			totalCost += item.getPrice();
+		}
+		return totalCost;
+	}
 }
