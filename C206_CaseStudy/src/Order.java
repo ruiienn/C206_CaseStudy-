@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Order {
@@ -7,12 +10,14 @@ public class Order {
     private String customerName;
     private List<String> items;
     private boolean isPaid;
+    private Map<String, Double> menu;
 
     public Order(int orderId, String customerName) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.items = new ArrayList<>();
         this.isPaid = false;
+        this.menu = new HashMap<>(); // Initialize the menu as an empty HashMap
     }
 
     public int getOrderId() {
@@ -23,12 +28,14 @@ public class Order {
         return customerName;
     }
 
-    public void addItem(String item) {
+    public void addItem(String item, double price) {
         items.add(item);
+        menu.put(item, price);
     }
 
     public void removeItem(String item) {
         items.remove(item);
+        menu.remove(item);
     }
 
     public List<String> getItems() {
@@ -43,12 +50,19 @@ public class Order {
         isPaid = true;
     }
 
-    // Make the methods public and static
-    public static void createNewOrder(List<Order> orders, Scanner scanner) {
-        System.out.print("Enter Order ID: ");
-        int orderId = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+    public double calculateOrderAmount() {
+        double totalAmount = 0.0;
+        for (String item : items) {
+            if (menu.containsKey(item)) {
+                totalAmount += menu.get(item);
+            }
+        }
+        return totalAmount;
+    }
 
+    public static void createNewOrder(List<Order> orders, Scanner scanner) {
+        Random random = new Random();
+        int orderId = 1000 + random.nextInt(9000); // Generate a 4-digit random number (between 1000 and 9999)
         System.out.print("Enter Customer Name: ");
         String customerName = scanner.nextLine();
 
@@ -62,7 +76,9 @@ public class Order {
             if (itemName.equalsIgnoreCase("done")) {
                 addMoreItems = false;
             } else {
-                newOrder.addItem(itemName);
+                System.out.print("Enter Price for " + itemName + ": ");
+                double price = Double.parseDouble(scanner.nextLine());
+                newOrder.addItem(itemName, price);
             }
         }
 
@@ -80,7 +96,7 @@ public class Order {
                 System.out.println("Customer Name: " + order.getCustomerName());
                 System.out.println("Items:");
                 for (String item : order.getItems()) {
-                    System.out.println("- " + item);
+                    System.out.println("- " + item + " ($" + order.menu.get(item) + ")");
                 }
                 System.out.println("Paid: " + order.isPaid());
                 System.out.println("------------");
@@ -91,7 +107,7 @@ public class Order {
     public static void deleteExistingOrder(List<Order> orders, Scanner scanner) {
         System.out.print("Enter the Order ID to delete: ");
         int orderIdToDelete = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine(); // Consume the newline character after reading the orderId
 
         Order orderToDelete = null;
 
@@ -110,12 +126,11 @@ public class Order {
         }
     }
 
-    // New method to allow user to pay for orders
     public static void payOrder(List<Order> orders, Scanner scanner) {
         System.out.println("--- Pay for Order ---");
         System.out.print("Enter the Order ID to pay for: ");
         int orderId = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character after reading the orderId
+        scanner.nextLine(); // Consume the newline character after reading the orderIds
 
         Order orderToPay = null;
 
@@ -130,12 +145,19 @@ public class Order {
             if (orderToPay.isPaid()) {
                 System.out.println("Order with ID " + orderId + " has already been paid.");
             } else {
+                double totalAmount = orderToPay.calculateOrderAmount();
+                System.out.println("Total Amount to Pay: $" + totalAmount);
+
                 System.out.print("Enter the payment amount: ");
                 double amount = scanner.nextDouble();
                 scanner.nextLine(); // Consume the newline character after reading the amount
 
-                orderToPay.markAsPaid();
-                System.out.println("Payment for Order ID " + orderId + " has been processed.");
+                if (amount >= totalAmount) {
+                    orderToPay.markAsPaid();
+                    System.out.println("Payment for Order ID " + orderId + " has been processed.");
+                } else {
+                    System.out.println("Payment amount is not sufficient. Payment failed.");
+                }
             }
         } else {
             System.out.println("Order with ID " + orderId + " not found.");
