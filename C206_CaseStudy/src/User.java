@@ -34,6 +34,14 @@ public class User {
 
         System.out.print("Enter Role (customer/stall Owner/administrator): ");
         String role = scanner.nextLine();
+        
+        if(role.equalsIgnoreCase("stall owner")) {
+        	System.out.println("Logging in as stall owner");
+        }else if(role.equalsIgnoreCase("administrator")) {
+        	System.out.println("Logging in as administrator");
+        }else {
+        System.out.println("Logging in as customer.");
+        }
 
         User newUser = new User(username, password, role);
         users.add(newUser);

@@ -32,12 +32,10 @@ public class C206_CaseStudy {
                 loggedInUser = loggedInUserName; // Set the loggedInUser to the customer name
                 System.out.println("Login successful.");
             }
-        } else if (loginChoice.equalsIgnoreCase("no")) {
+        } else if (loginChoice.equalsIgnoreCase("no")) { 
             String R = readString("Do you want to register an account? (yes/no):", scanner);
             if (R.equalsIgnoreCase("yes")) {
                 User.createNewUser(users, scanner);
-            }
-            System.out.println("Logging in as customer.");
         } else {
             System.out.println("Invalid choice. Logging in as guest.");
         }
@@ -142,7 +140,7 @@ public class C206_CaseStudy {
         }
         System.out.println("Exiting the program. Thank you for using the Food Court Management System!");
     }
-
+}
     // Helper method to perform login
     public static String login(List<User> users, Scanner scanner) {
         System.out.print("Enter Username: ");
