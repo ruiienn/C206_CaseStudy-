@@ -150,11 +150,13 @@ public class Order {
 
                 System.out.print("Enter the payment amount: ");
                 double amount = scanner.nextDouble();
+                double change = amount - totalAmount;
+                String formattedChange = String.format("%.2f", change);
                 scanner.nextLine(); // Consume the newline character after reading the amount
 
                 if (amount >= totalAmount) {
                     orderToPay.markAsPaid();
-                    System.out.println("Payment for Order ID " + orderId + " has been processed.");
+                    System.out.println("Payment for Order ID " + orderId + " has been processed." + "\nThe change: $" + formattedChange);
                 } else {
                     System.out.println("Payment amount is not sufficient. Payment failed.");
                 }
