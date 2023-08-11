@@ -7,10 +7,10 @@ public class C206_CaseStudy {
 	private static List<Stall> stalls = new ArrayList<>();
 	private static List<User> users = new ArrayList<>();
 	private static Queue customerQueue = new Queue();
-	private static String loggedInUser = "Guest"; // Default to "Guest" if no user is logged in
+	private static String loggedInUser = "Guest"; // Default to "Guest" if no user is logged ins
 
 	public static void main(String[] args) {
-		User testUser = new User("testuser", "testpassword", "customer");
+		User testUser = new User("testuser", "testpassword", "administrator");
 		users.add(testUser);
 
 		Scanner scanner = new Scanner(System.in);
@@ -41,107 +41,107 @@ public class C206_CaseStudy {
 			}
 		}
 
-			// Create some example stalls
-			Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A",1);
-			stall1.addMenuItem("Noodle Soup",13.00);
-			stall1.addMenuItem("Fried Dumplings",13.00);
-			stall1.addMenuItem("Spring Rolls",13.00);
+		// Create some example stalls
+		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A",1);
+		stall1.addMenuItem("Noodle Soup",13.00);
+		stall1.addMenuItem("Fried Dumplings",13.00);
+		stall1.addMenuItem("Spring Rolls",13.00);
 
-			Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B",2);
-			stall2.addMenuItem("Margherita Pizza",13.00);
-			stall2.addMenuItem("Pepperoni Pizza",13.00);
-			stall2.addMenuItem("Hawaiian Pizza",13.00);
+		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B",2);
+		stall2.addMenuItem("Margherita Pizza",13.00);
+		stall2.addMenuItem("Pepperoni Pizza",13.00);
+		stall2.addMenuItem("Hawaiian Pizza",13.00);
 
-			Stall stall3 = new Stall("Burger Junction", "American", "Food Court C",3);
-			stall3.addMenuItem("Classic Cheeseburger",13.00);
-			stall3.addMenuItem("BBQ Bacon Burger",13.00);
-			stall3.addMenuItem("Veggie Burger",13.00);
+		Stall stall3 = new Stall("Burger Junction", "American", "Food Court C",3);
+		stall3.addMenuItem("Classic Cheeseburger",13.00);
+		stall3.addMenuItem("BBQ Bacon Burger",13.00);
+		stall3.addMenuItem("Veggie Burger",13.00);
 
-			// Add the stalls to the list of stalls
-			stalls.add(stall1);
-			stalls.add(stall2);
-			stalls.add(stall3);
+		// Add the stalls to the list of stalls
+		stalls.add(stall1);
+		stalls.add(stall2);
+		stalls.add(stall3);
 
-			boolean exitProgram = false;
+		boolean exitProgram = false;
 
-			while (!exitProgram) {
-				System.out.println("\n--- Food Court Management System ---");
-				System.out.println("1. Create a new order");
-				System.out.println("2. View all orders");
-				System.out.println("3. Delete an existing order");
-				System.out.println("4. Add a new stall");
-				System.out.println("5. View all stalls");
-				System.out.println("6. Delete an existing stall");
-				System.out.println("7. Queue for multiple stalls");
-				System.out.println("8. View queued stalls");
-				System.out.println("9. Leave the queue");
-				System.out.println("10. Create a user account");
-				System.out.println("11. Delete an existing user");
-				System.out.println("12. View all users");
-				System.out.println("13. Pay for an order");
-				System.out.println("0. Exit");
+		while (!exitProgram) {
+			System.out.println("\n--- Food Court Management System ---");
+			System.out.println("1. Create a new order");
+			System.out.println("2. View all orders");
+			System.out.println("3. Delete an existing order");
+			System.out.println("4. Add a new stall");
+			System.out.println("5. View all stalls");
+			System.out.println("6. Delete an existing stall");
+			System.out.println("7. Queue for multiple stalls");
+			System.out.println("8. View queued stalls");
+			System.out.println("9. Leave the queue");
+			System.out.println("10. Create a user account");
+			System.out.println("11. Delete an existing user");
+			System.out.println("12. View all users");
+			System.out.println("13. Pay for an order");
+			System.out.println("0. Exit");
 
-				System.out.print("Enter your choice: ");
-				int choice = scanner.nextInt();
-				scanner.nextLine(); // Consume the newline character after reading the choice
+			System.out.print("Enter your choice: ");
+			int choice = scanner.nextInt();
+			scanner.nextLine(); // Consume the newline character after reading the choice
 
-				// Check if the user is authorized to access the menu
-				if (!isAuthorized(loggedInUser, choice)) {
-					System.out.println("You are not authorized to perform this operation.");
-					continue;
-				}
-
-				switch (choice) {
-				case 1:
-					Stall.viewAllStalls(stalls);
-					Order.createNewOrder(orders, scanner);
-					break;
-				case 2:
-					Order.viewAllOrders(orders);
-					break;
-				case 3:
-					Order.deleteExistingOrder(orders, scanner);
-					break;
-				case 4:
-					Stall.addNewStall(stalls, scanner);
-					break;
-				case 5:
-					Stall.viewAllStalls(stalls);
-					break;
-				case 6:
-					Stall.deleteExistingStall(stalls, scanner);
-					break;
-				case 7:
-					Queue.queueForMultipleStalls(customerQueue, stalls, scanner);
-					break;
-				case 8:
-					Queue.viewQueuedStalls(customerQueue);
-					break;
-				case 9:
-					Queue.leaveQueue(customerQueue, scanner);
-					break;
-				case 10:
-					User.createNewUser(users, scanner);
-					break;
-				case 11:
-					User.deleteExistingUser(users, scanner);
-					break;
-				case 12:
-					User.viewAllUsers(users);
-					break;
-				case 13:
-					Order.payOrder(orders, scanner);
-					break;
-				case 0:
-					exitProgram = true;
-					break;
-				default:
-					System.out.println("Invalid choice. Please try again.");
-				}
+			// Check if the user is authorized to access the menu
+			if (!isAuthorized(loggedInUser, choice)) {
+				System.out.println("You are not authorized to perform this operation.");
+				continue;
 			}
-			System.out.println("Exiting the program. Thank you for using the Food Court Management System!");
+
+			switch (choice) {
+			case 1:
+				Stall.viewAllStalls(stalls);
+				Order.createNewOrder(orders, scanner);
+				break;
+			case 2:
+				Order.viewAllOrders(orders);
+				break;
+			case 3:
+				Order.deleteExistingOrder(orders, scanner);
+				break;
+			case 4:
+				Stall.addNewStall(stalls, scanner);
+				break;
+			case 5:
+				Stall.viewAllStalls(stalls);
+				break;
+			case 6:
+				Stall.deleteExistingStall(stalls, scanner);
+				break;
+			case 7:
+				Queue.queueForMultipleStalls(customerQueue, stalls, scanner);
+				break;
+			case 8:
+				Queue.viewQueuedStalls(customerQueue);
+				break;
+			case 9:
+				Queue.leaveQueue(customerQueue, scanner);
+				break;
+			case 10:
+				User.createNewUser(users, scanner);
+				break;
+			case 11:
+				User.deleteExistingUser(users, scanner);
+				break;
+			case 12:
+				User.viewAllUsers(users);
+				break;
+			case 13:
+				Order.payOrder(orders, scanner);
+				break;
+			case 0:
+				exitProgram = true;
+				break;
+			default:
+				System.out.println("Invalid choice. Please try again.");
+			}
 		}
-	
+		System.out.println("Exiting the program. Thank you for using the Food Court Management System!");
+	}
+
 	// Helper method to perform login
 	public static String login(List<User> users, Scanner scanner) {
 		System.out.print("Enter Username: ");
@@ -161,10 +161,35 @@ public class C206_CaseStudy {
 
 	// Helper method to check user authorization
 	public static boolean isAuthorized(String username, int choice) {
-		// Implement your logic for user authorization based on the role and menu choices.
-		// For example, you can check if the user's role is "canteen_manager" to allow certain operations.
-		// Return true if the user is authorized, otherwise return false.
-		return true; // Replace this with your actual authorization logic
+		// Find the user with the given username in the list of users
+		User currentUser = null;
+		for (User user : users) {
+			if (user.getUsername().equals(username)) {
+				currentUser = user;
+				break;
+			}
+		}
+
+		if (currentUser == null) {
+			return choice >= 0 && choice <= 3 || choice == 5 || choice >= 7 && choice <= 9 || choice == 14; // Default access for guests
+		}
+
+		// Determine the role of the current user and apply role-based access control
+		if (currentUser.getRole().equalsIgnoreCase("administrator")) {
+			return true; // Administrators have access to all menu options
+		} else {
+			// For other roles, apply the existing access control logic
+			switch (currentUser.getRole()) {
+			case "customer":
+				return choice >= 0 && choice <= 3 ||choice ==5 || choice >=7 && choice <=9 || choice == 14; 
+			case "stall owner":
+				return choice  ==0 || choice >= 4 && choice < 6;
+			default:
+				System.out.println("Invalid role");
+				return false; // Unknown role
+
+			}
+		}
 	}
 
 	// Helper method to read a string input
