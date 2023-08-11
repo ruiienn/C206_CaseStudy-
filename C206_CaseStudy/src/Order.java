@@ -113,17 +113,25 @@ public class Order {
 
         for (Order order : orders) {
             if (order.getOrderId() == orderIdToDelete) {
-                orderToDelete = order;
+                orderToDelete = order;         
                 break;
             }
         }
 
         if (orderToDelete != null) {
-            orders.remove(orderToDelete);
-            System.out.println("Order with ID " + orderIdToDelete + " has been deleted.");
+            String confirm =Helper.readString("are you sure you want to delete order? >(yes/no) "); 
+            if (confirm.equalsIgnoreCase("yes")) {
+            	orders.remove(orderToDelete);
+            	System.out.println("Order with ID " + orderIdToDelete + " has been deleted.");
+            } 
+            else {
+            	System.out.println("delete unsuccessful");
+            }
+            	
         } else {
             System.out.println("Order with ID " + orderIdToDelete + " not found.");
         }
+        
     }
 
     public static void payOrder(List<Order> orders, Scanner scanner) {
