@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ public class C206_CaseStudy {
 	private static List<Stall> stalls = new ArrayList<>();
 	private static List<User> users = new ArrayList<>();
 	private static Queue customerQueue = new Queue();
+	private static Feedback feedback = new Feedback();
 	private static String loggedInUser = "Guest"; // Default to "Guest" if no user is logged ins
 
 	public static void main(String[] args) {
@@ -79,6 +81,7 @@ public class C206_CaseStudy {
 			System.out.println("11. Delete an existing user");
 			System.out.println("12. View all users");
 			System.out.println("13. Pay for an order");
+			System.out.println("14. Feedback");
 			System.out.println("0. Exit");
 
 			System.out.print("Enter your choice: ");
@@ -132,6 +135,9 @@ public class C206_CaseStudy {
 			case 13:
 				Order.payOrder(orders, scanner);
 				break;
+			case 14:
+				feedbackMenu(loggedInUser, feedback, scanner);
+				break;
 			case 0:
 				exitProgram = true;
 				break;
@@ -181,7 +187,7 @@ public class C206_CaseStudy {
 			// For other roles, apply the existing access control logic
 			switch (currentUser.getRole()) {
 			case "customer":
-				return choice >= 0 && choice <= 3 ||choice ==5 || choice >=7 && choice <=9 || choice == 14; 
+				return choice >= 0 && choice <= 3 || choice ==5 || choice >=7 && choice <=9 || choice == 14; 
 			case "stall owner":
 				return choice  ==0 || choice >= 4 && choice < 6;
 			default:
@@ -197,4 +203,60 @@ public class C206_CaseStudy {
 		System.out.print(prompt);
 		return scanner.nextLine();
 	}
-}
+	 private static void feedbackMenu(String loggedInUser, Feedback feedback, Scanner scanner) { 
+	     boolean exitFeedbackMenu = false; 
+	     while (!exitFeedbackMenu) { 
+	         System.out.println("\n--- Feedback Menu ---"); 
+	         System.out.println("1. View Feedback"); 
+	         System.out.println("2. Add Feedback"); 
+	         System.out.println("3. Delete Feedback"); 
+	         System.out.println("0. Back to Main Menu"); 
+	 
+	         System.out.print("Enter your choice: "); 
+	         int feedbackChoice; 
+	         try { 
+	             feedbackChoice = scanner.nextInt(); 
+	             scanner.nextLine(); // Consume the newline character after reading the choice 
+	         } catch (InputMismatchException e) { 
+	             System.out.println("Invalid input. Please enter a valid number."); 
+	             scanner.nextLine(); // Consume the invalid input 
+	             continue; 
+	         } 
+	 
+	         switch (feedbackChoice) { 
+	             case 1: 
+	                 feedback.viewFeedback(); 
+	                 break; 
+	             case 2: 
+	                 System.out.print("Please enter item ordered and give feedback: "); 
+	                 String userFeedback = scanner.nextLine(); 
+	                 feedback.addFeedback(loggedInUser, userFeedback); 
+	                 System.out.println("Feedback uploaded successfully."); 
+	                 break; 
+	             case 3: 
+	                 feedback.viewFeedback(); // Display existing feedback for reference 
+	                 System.out.print("Enter the index of the feedback to delete: "); 
+	                 int indexToDelete; 
+	                 try { 
+	                     indexToDelete = scanner.nextInt(); 
+	                     scanner.nextLine(); // Consume the newline character after reading the choice 
+	                 } catch (InputMismatchException ex) { 
+	                     System.out.println("Invalid input. Please enter a valid number."); 
+	                     scanner.nextLine(); // Consume the invalid input 
+	                     continue; 
+	                 } 
+	                 if (feedback.deleteFeedback(indexToDelete - 1)) { 
+	                     System.out.println("Feedback deleted successfully."); 
+	                 } else { 
+	                     System.out.println("Failed to delete feedback. Invalid index."); 
+	                 } 
+	                 break; 
+	             case 0: 
+	                 exitFeedbackMenu = true; 
+	                 break; 
+	             default: 
+	                 System.out.println("Invalid choice. Please try again."); 
+	         } 
+	     } 
+	 } 
+	}
