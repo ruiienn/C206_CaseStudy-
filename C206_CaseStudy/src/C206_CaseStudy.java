@@ -181,7 +181,7 @@ public class C206_CaseStudy {
 		}
 
 		if (currentUser == null) {
-			return choice >= 0 && choice <= 3 || choice == 5 || choice >= 7 && choice <= 9 || choice == 14; // Default access for guests
+			return choice >= 0 && choice <= 3 || choice == 5 || choice >= 7 && choice <= 9 || choice == 13 || choice ==14; // Default access for guests
 		}
 
 		// Determine the role of the current user and apply role-based access control
@@ -191,7 +191,7 @@ public class C206_CaseStudy {
 			// For other roles, apply the existing access control logic
 			switch (currentUser.getRole()) {
 			case "customer":
-				return choice >= 0 && choice <= 3 || choice ==5 || choice >=7 && choice <=9 || choice == 14; 
+				return choice >= 0 && choice <= 3 || choice ==5 || choice >=7 && choice <=9 || choice == 13 || choice ==14; 
 			case "stall owner":
 				return choice  ==0 || choice >= 4 && choice < 6 || choice == 15;
 			default:
