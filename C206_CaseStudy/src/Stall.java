@@ -34,13 +34,14 @@ public class Stall {
 	}
 
 	public void addMenuItem(String itemName, double itemPrice) {
-		MenuItem item = new MenuItem(itemName, itemPrice);
-		menu.add(item);
+	    MenuItem item = new MenuItem(itemName, itemPrice);
+	    menu.add(item);
 	}
 
 	public void removeMenuItem(String itemName) {
-		menu.removeIf(item -> item.getName().equalsIgnoreCase(itemName));
+	    menu.removeIf(item -> item.getName().equalsIgnoreCase(itemName));
 	}
+
 
 	public List<MenuItem> getMenu() {
 		return menu;
@@ -164,4 +165,5 @@ public class Stall {
 		}
 		return totalCost;
 	}
+	
 }

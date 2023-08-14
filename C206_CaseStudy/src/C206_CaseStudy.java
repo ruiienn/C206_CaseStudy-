@@ -82,6 +82,7 @@ public class C206_CaseStudy {
 			System.out.println("12. View all users");
 			System.out.println("13. Pay for an order");
 			System.out.println("14. Feedback");
+			System.out.println("15 Edit stall Menu");
 			System.out.println("0. Exit");
 
 			System.out.print("Enter your choice: ");
@@ -138,6 +139,9 @@ public class C206_CaseStudy {
 			case 14:
 				feedbackMenu(loggedInUser, feedback, scanner);
 				break;
+			case 15: 
+			    manageStallMenu(scanner);
+			    break;
 			case 0:
 				exitProgram = true;
 				break;
@@ -189,7 +193,7 @@ public class C206_CaseStudy {
 			case "customer":
 				return choice >= 0 && choice <= 3 || choice ==5 || choice >=7 && choice <=9 || choice == 14; 
 			case "stall owner":
-				return choice  ==0 || choice >= 4 && choice < 6;
+				return choice  ==0 || choice >= 4 && choice < 6 || choice == 15;
 			default:
 				System.out.println("Invalid role");
 				return false; // Unknown role
@@ -259,4 +263,64 @@ public class C206_CaseStudy {
 	         } 
 	     } 
 	 } 
+	 private static void manageStallMenu(Scanner scanner) {
+		    // Display available stalls
+		    System.out.println("--- Select a Stall ---");
+		    Stall.viewAllStalls(stalls);
+		    System.out.print("Enter Stall Id: ");
+		    int selectedStallId = scanner.nextInt();
+		    scanner.nextLine(); // Consume the newline character
+
+		    // Find the selected stall
+		    Stall selectedStall = null;
+		    for (Stall stall : stalls) {
+		        if (stall.getStallId() == selectedStallId) {
+		            selectedStall = stall;
+		            break;
+		        }
+		    }
+
+		    if (selectedStall != null) {
+		        System.out.println("Selected Stall: " + selectedStall.getName());
+		        System.out.println("1. Add Menu Item");
+		        System.out.println("2. Remove Menu Item");
+		        System.out.print("Enter your choice: ");
+		        int menuChoice = scanner.nextInt();
+		        scanner.nextLine(); // Consume the newline character
+
+		        switch (menuChoice) {
+		            case 1:
+		                addMenuItemToStall(selectedStall, scanner);
+		                break;
+		            case 2:
+		                removeMenuItemFromStall(selectedStall, scanner);
+		                break;
+		            default:
+		                System.out.println("Invalid choice. Returning to main menu.");
+		        }
+		    } else {
+		        System.out.println("Stall not found.");
+		    }
+		}
+
+		private static void addMenuItemToStall(Stall stall, Scanner scanner) {
+		    System.out.print("Enter Menu Item Name: ");
+		    String itemName = scanner.nextLine();
+
+		    System.out.print("Enter Menu Item Price: ");
+		    double itemPrice = scanner.nextDouble();
+		    scanner.nextLine(); // Consume the newline character
+
+		    stall.addMenuItem(itemName, itemPrice);
+		    System.out.println("Menu item added successfully.");
+		}
+
+		private static void removeMenuItemFromStall(Stall stall, Scanner scanner) {
+		    System.out.print("Enter Menu Item Name to Remove: ");
+		    String itemName = scanner.nextLine();
+
+		    stall.removeMenuItem(itemName);
+		    System.out.println("Menu item removed successfully.");
+		}
+
 	}
