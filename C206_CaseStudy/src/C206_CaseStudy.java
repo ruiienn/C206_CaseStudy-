@@ -82,7 +82,7 @@ public class C206_CaseStudy {
 			System.out.println("12. View all users");
 			System.out.println("13. Pay for an order");
 			System.out.println("14. Feedback");
-			System.out.println("15 Edit stall Menu");
+			System.out.println("15. Edit stall Menu");
 			System.out.println("0. Exit");
 
 			System.out.print("Enter your choice: ");
