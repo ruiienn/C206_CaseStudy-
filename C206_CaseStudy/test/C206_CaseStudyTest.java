@@ -37,6 +37,54 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	public void testdeleteExistingOrders() { //Sheena
+		// Creating a new order to test if the order can be deleted.
+		List<Order> orders = new ArrayList<>();
+		Order testOrder = new Order(1234, "Test Customer");
+		orders.add(testOrder);
+		
+		String input = "1234\nyes\n"; // Simulating the user input
+		InputStream testIn = new ByteArrayInputStream(input.getBytes());
+		System.setIn(testIn);
+		
+		// Calling the method that is being tested
+		Order.deleteExistingOrder(orders, new Scanner(System.in));
+		// Verifying that the order has been deleted
+		assertEquals(0, orders.size());
+		
+	}
+	
+	@Test
+    public void testViewAllOrders() {
+		List<Order> orders = new ArrayList<>();
+		
+        Order order1 = new Order(1234, "Sheena");
+        Order order2 = new Order(2345, "Jun Yang");
+        
+        orders.add(order1);
+        orders.add(order2);
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream(); // Creating a new instance
+        System.setOut(new PrintStream(outContent)); 
+
+        Order.viewAllOrders(orders);
+
+        String expectedOutput = "--- All Orders ---\n" +
+                "Order ID: 1234\n" +
+                "Customer Name: Sheena\n" +
+                "Items:\n" +
+                "Paid: false\n" +
+                "------------\n" +
+                "Order ID: 2345\n" +
+                "Customer Name: Jun Yang\n" +
+                "Items:\n" +
+                "Paid: false\n" +
+                "------------\n";
+        
+        assertEquals("Test that the output is correct", expectedOutput, outContent.toString());
+    }
+
+	@Test
 	public void testPayOrder() { //sherwayne
 		List<Order> orders = new ArrayList<>();
 		Order order = new Order(1001, "Alice");
@@ -150,6 +198,7 @@ public class C206_CaseStudyTest {
         assertEquals(expectedOutput, outContent.toString());
     }
  
+    @Test
     public void testCreateNewUser() { //Ashley
      
         String input = "Tom\npassword123\ndone\n";
@@ -168,6 +217,7 @@ public class C206_CaseStudyTest {
         assertEquals("spiderman", user.getPassword());
     }
     
+    @Test
     public void testDeleteExistingUser() { //Ashley
       
         String input = "Alice\ndelete\n";
@@ -185,6 +235,7 @@ public class C206_CaseStudyTest {
         assertNotEquals(1,users.size()); // user not deleted
     }
     
+    @Test
     public void testViewAllUsers() { //Ashley
         List<User> users = new ArrayList<>();
         users.add(new User("harry", "potter123","customer"));
