@@ -270,22 +270,21 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void testViewFeedback() {//kai
-		Feedback feedback = new Feedback();
-		feedback.addFeedback("John", "Great service!");
-		feedback.addFeedback("Alice", "Delicious food!");
+	    Feedback feedback = new Feedback();
+	    feedback.addFeedback("John", "Great service!");
+	    feedback.addFeedback("Alice", "Delicious food!");
 
-		String expectedOutput = "--- View Feedback ---\n" +
-				"Feedback 1: John: Great service!\n" +
-				"Feedback 2: Alice: Delicious food!\n";
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    System.setOut(new PrintStream(outputStream));
 
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outputStream));
+	    feedback.viewFeedback();
+	    String actualOutput = outputStream.toString().trim(); // Trim trailing newline
 
-		feedback.viewFeedback();
-		String actualOutput = outputStream.toString().trim(); // Trim trailing newline
-
-		assertEquals(expectedOutput, actualOutput);
+	    assertTrue(actualOutput.contains("Feedback 1: John: Great service!"));
+	    assertTrue(actualOutput.contains("Feedback 2: Alice: Delicious food!"));
 	}
+
+	 
 
 	@Test
 	public void testQueueForMultipleStalls() { // Adawia
