@@ -258,7 +258,7 @@ public class C206_CaseStudyTest {
     
     
     @Test
-    public void testAddFeedback() {
+    public void testAddFeedback() {//kai
         Feedback feedback = new Feedback();
         feedback.addFeedback("John", "Great service!");
 
@@ -267,7 +267,7 @@ public class C206_CaseStudyTest {
     }
 
     @Test
-    public void testDeleteFeedback() {
+    public void testDeleteFeedback() {//kai
         Feedback feedback = new Feedback();
         feedback.addFeedback("John", "Great service!");
 
@@ -276,7 +276,7 @@ public class C206_CaseStudyTest {
     }
 
     @Test
-    public void testDeleteFeedbackInvalidIndex() {
+    public void testDeleteFeedbackInvalidIndex() {//kai
         Feedback feedback = new Feedback();
         feedback.addFeedback("John", "Great service!");
 
@@ -285,7 +285,7 @@ public class C206_CaseStudyTest {
     }
 
     @Test
-    public void testViewFeedback() {
+    public void testViewFeedback() {//kai
         Feedback feedback = new Feedback();
         feedback.addFeedback("John", "Great service!");
         feedback.addFeedback("Alice", "Delicious food!");
