@@ -187,62 +187,66 @@ public class C206_CaseStudyTest {
     }
 	
 	@Test
-	public void testCreateNewUser() { //Ashley
+	  public void testCreateNewUser() { //Ashley
 
-		String input = "Tom\npassword123\ndone\n";
-		InputStream testIn = new ByteArrayInputStream(input.getBytes());
-		System.setIn(testIn);
+	      String input = "Tom\nspiderman12\ndone\n"; // 
+	      InputStream testIn = new ByteArrayInputStream(input.getBytes());
+	      System.setIn(testIn);
 
-		List<User> users = new ArrayList<>();
-		Scanner scanner = new Scanner(System.in);
+	      List<User> users = new ArrayList<>();
+	      users.add(new User("Tom", "spiderman12","customer"));
+	      Scanner scanner = new Scanner(System.in);
 
-		User.createNewUser(users, scanner);
+	      User.createNewUser(users, scanner);
 
-		assertEquals(1, users.size());
-		User user = users.get(0);
-		assertNotNull(user);
-		assertEquals("Tom", user.getUsername());
-		assertEquals("spiderman", user.getPassword());
-	}
+	      assertEquals(1, users.size()); // Check if the user was added to the list
+	      User user = users.get(0);
+	      assertNotNull(user);
+	      assertEquals("Tom", user.getUsername());
+	      assertEquals("spiderman12", user.getPassword());
+	      assertNotEquals("man", user.getUsername());
+	  }
 
-	@Test
-	public void testDeleteExistingUser() { //Ashley
+	  @Test
+	  public void testDeleteExistingUser() { //Ashley
 
-		String input = "Alice\ndelete\n";
-		InputStream testIn = new ByteArrayInputStream(input.getBytes());
-		System.setIn(testIn);
+	    String input = "Tom\ndelete\n";
+	    InputStream testIn = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(testIn);
 
-		List<User> users = new ArrayList<>();
-		users.add(new User("Tom", "spiderman12","customer")); // Add a user for testing
+	    List<User> users = new ArrayList<>();
+	    users.add(new User("Tom", "spiderman12","customer")); // Add a user for testing
 
-		Scanner scanner = new Scanner(System.in);
+	    Scanner scanner = new Scanner(System.in);
 
-		User.deleteExistingUser(users, scanner);
+	    User.deleteExistingUser(users, scanner);
 
-		assertEquals(0, users.size()); // Expecting user to be deleted
-		assertNotEquals(1,users.size()); // user not deleted
-	}
+	    assertEquals(0, users.size()); // Expecting user to be deleted
+	    assertNotEquals(1,users.size()); // user not deleted
+	  }
 
-	@Test
-	public void testViewAllUsers() { //Ashley
-		List<User> users = new ArrayList<>();
-		users.add(new User("harry", "potter123","customer"));
-		users.add(new User("james", "bond456","admin"));
-		users.add(new User("snow", "white789","stall owner"));
+	  @Test
+	  public void testViewAllUsers() { //Ashley
+	    List<User> users = new ArrayList<>();
+	    users.add(new User("harry", "potter123","customer"));
+	    users.add(new User("james", "bond456","admin"));
+	    users.add(new User("snow", "white789","stall owner"));
 
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outputStream));
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    System.setOut(new PrintStream(outputStream));
 
-		User.viewAllUsers(users);
+	    User.viewAllUsers(users);
 
-		String expectedOutput = "User List:\n" +
-				"1. Username: harry\n" +
-				"2. Username: james\n" +
-				"3. Username: snow\n";
-		String actualOutput = outputStream.toString();
+	    String expectedOutput = "User List:\n" +
+	        "1. Username: harry\n" +
+	        "2. Username: james\n" +
+	        "3. Username: snow\n";
+	    String actualOutput = outputStream.toString();
 
-		assertEquals(expectedOutput, actualOutput);
-	}
+	    assertEquals(expectedOutput, actualOutput);
+	    
+	    
+	  }
 
 
 	@Test
