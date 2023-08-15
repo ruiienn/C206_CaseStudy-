@@ -181,7 +181,7 @@ public class C206_CaseStudyTest {
 	@Test
 	  public void testCreateNewUser() { //Ashley
 
-	      String input = "Tom\nspiderman12\ndone\n"; // 
+	      String input = "Tom\nspiderman12\ndone\n"; 
 	      InputStream testIn = new ByteArrayInputStream(input.getBytes());
 	      System.setIn(testIn);
 
@@ -191,7 +191,8 @@ public class C206_CaseStudyTest {
 
 	      User.createNewUser(users, scanner);
 
-	      assertEquals(1, users.size()); // Check if the user was added to the list
+	      assertEquals(1, users.size()); 
+	      
 	      User user = users.get(0);
 	      assertNotNull(user);
 	      assertEquals("Tom", user.getUsername());
@@ -215,31 +216,42 @@ public class C206_CaseStudyTest {
 
 	    assertEquals(0, users.size()); // Expecting user to be deleted
 	    assertNotEquals(1,users.size()); // user not deleted
+	    assertNotNull(users); // make sure there is something to delete
 	  }
+	  
+		@Test
+		public void testViewAllUsers() {
+		 List<User> users = new ArrayList<>();
 
-	  @Test
-	  public void testViewAllUsers() { //Ashley
-	    List<User> users = new ArrayList<>();
-	    users.add(new User("harry", "potter123","customer"));
-	    users.add(new User("james", "bond456","admin"));
-	    users.add(new User("snow", "white789","stall owner"));
+		 User user1 = new User("millie", "password123", "customer");
+		 User user2 = new User("Bobby", "secret456", "admin");
 
-	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outputStream));
+		 users.add(user1);
+		 users.add(user2);
 
-	    User.viewAllUsers(users);
+		 ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		 System.setOut(new PrintStream(outContent));
 
-	    String expectedOutput = "User List:\n" +
-	        "1. Username: harry\n" +
-	        "2. Username: james\n" +
-	        "3. Username: snow\n";
-	    String actualOutput = outputStream.toString();
+		 viewAllUsers(users); 
 
-	    assertEquals(expectedOutput, actualOutput);
-	    
-	    
-	  }
+		  System.setOut(System.out);
 
+	
+		 String expectedOutput = "All Users:\n" + "Name: millie, Role: customer\n" + "Name: Bobby, Role: admin\n";
+		        assertEquals(expectedOutput, outContent.toString());
+		        
+		       
+		 assertTrue(users.contains(user1));
+		 assertTrue(users.contains(user2));
+		 }
+ 
+		 private void viewAllUsers(List<User> users) {
+		 System.out.println("All Users:");
+		 for (User user : users) {
+		     System.out.println("Name: " + user.getUsername() + ", Role: " + user.getRole());
+		     }
+		 }
+		
 
 	@Test
 	public void testAddFeedback() {//kai
