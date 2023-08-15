@@ -255,6 +255,55 @@ public class C206_CaseStudyTest {
 
         assertEquals(expectedOutput, actualOutput);
     }
+    
+    
+    @Test
+    public void testAddFeedback() {
+        Feedback feedback = new Feedback();
+        feedback.addFeedback("John", "Great service!");
+
+        assertEquals(1, feedback.getFeedbackList().size());
+        assertEquals("John: Great service!", feedback.getFeedbackList().get(0));
+    }
+
+    @Test
+    public void testDeleteFeedback() {
+        Feedback feedback = new Feedback();
+        feedback.addFeedback("John", "Great service!");
+
+        assertTrue(feedback.deleteFeedback(0));
+        assertEquals(0, feedback.getFeedbackList().size());
+    }
+
+    @Test
+    public void testDeleteFeedbackInvalidIndex() {
+        Feedback feedback = new Feedback();
+        feedback.addFeedback("John", "Great service!");
+
+        assertFalse(feedback.deleteFeedback(1)); // Index 1 is out of range
+        assertEquals(1, feedback.getFeedbackList().size());
+    }
+
+    @Test
+    public void testViewFeedback() {
+        Feedback feedback = new Feedback();
+        feedback.addFeedback("John", "Great service!");
+        feedback.addFeedback("Alice", "Delicious food!");
+
+        String expectedOutput = "--- View Feedback ---\n" +
+                "Feedback 1: John: Great service!\n" +
+                "Feedback 2: Alice: Delicious food!\n";
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        feedback.viewFeedback();
+        String actualOutput = outputStream.toString().trim(); // Trim trailing newline
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+   
 
 	@Before
 	public void setUp() throws Exception {
