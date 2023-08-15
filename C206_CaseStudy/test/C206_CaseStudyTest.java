@@ -152,7 +152,7 @@ public class C206_CaseStudyTest {
  
     public void testCreateNewUser() { //Ashley
      
-        String input = "Alice\npassword123\ndone\n";
+        String input = "Tom\npassword123\ndone\n";
         InputStream testIn = new ByteArrayInputStream(input.getBytes());
         System.setIn(testIn);
 
@@ -185,7 +185,7 @@ public class C206_CaseStudyTest {
         assertNotEquals(1,users.size()); // user not deleted
     }
     
-    public void testViewAllUsers() {
+    public void testViewAllUsers() { //Ashley
         List<User> users = new ArrayList<>();
         users.add(new User("harry", "potter123","customer"));
         users.add(new User("james", "bond456","admin"));
