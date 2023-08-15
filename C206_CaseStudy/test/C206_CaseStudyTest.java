@@ -149,7 +149,61 @@ public class C206_CaseStudyTest {
                 "=============================================\n";
         assertEquals(expectedOutput, outContent.toString());
     }
+ 
+    public void testCreateNewUser() { //Ashley
+     
+        String input = "Alice\npassword123\ndone\n";
+        InputStream testIn = new ByteArrayInputStream(input.getBytes());
+        System.setIn(testIn);
 
+        List<User> users = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        User.createNewUser(users, scanner);
+
+        assertEquals(1, users.size());
+        User user = users.get(0);
+        assertNotNull(user);
+        assertEquals("Tom", user.getUsername());
+        assertEquals("spiderman", user.getPassword());
+    }
+    
+    public void testDeleteExistingUser() { //Ashley
+      
+        String input = "Alice\ndelete\n";
+        InputStream testIn = new ByteArrayInputStream(input.getBytes());
+        System.setIn(testIn);
+
+        List<User> users = new ArrayList<>();
+        users.add(new User("Tom", "spiderman12","customer")); // Add a user for testing
+
+        Scanner scanner = new Scanner(System.in);
+
+        User.deleteExistingUser(users, scanner);
+
+        assertEquals(0, users.size()); // Expecting user to be deleted
+        assertNotEquals(1,users.size()); // user not deleted
+    }
+    
+    public void testViewAllUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("harry", "potter123","customer"));
+        users.add(new User("james", "bond456","admin"));
+        users.add(new User("snow", "white789","stall owner"));
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        User.viewAllUsers(users);
+
+        String expectedOutput = "User List:\n" +
+                                "1. Username: harry\n" +
+                                "2. Username: james\n" +
+                                "3. Username: snow\n";
+        String actualOutput = outputStream.toString();
+
+        assertEquals(expectedOutput, actualOutput);
+    }
 
 	@Before
 	public void setUp() throws Exception {
