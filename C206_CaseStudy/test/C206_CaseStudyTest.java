@@ -14,7 +14,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
 	@Test
 	public void testCreateNewOrder() { //Sheena
@@ -429,17 +440,4 @@ public class C206_CaseStudyTest {
 	private String getSystemOut() {
 		return new java.io.ByteArrayOutputStream().toString();
 	}
-
-	@Before
-	public void setUp() throws Exception {
-
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-
-
-
 }
