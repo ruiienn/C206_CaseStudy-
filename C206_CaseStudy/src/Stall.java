@@ -82,7 +82,7 @@ public class Stall {
 	}
 
 	public static void viewAllStalls(List<Stall> stalls) {
-		Helper.line(45, "=");
+		System.out.println("=============================================\n");
 		System.out.println("--- All Stalls ---");
 		if (stalls.isEmpty()) {
 			System.out.println("No stalls found.");
@@ -97,7 +97,7 @@ public class Stall {
 				for (MenuItem item : stall.getMenu()) {
 					System.out.println("= " + item.getName() + " ($" + item.getPrice() + ")");
 				}
-				Helper.line(45, "=");
+				System.out.println("=============================================\n");
 			}
 		}
 	}

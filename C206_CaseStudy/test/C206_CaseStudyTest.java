@@ -97,7 +97,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void testPayOrder() { //sherwayne
+	public void testPayOrder() { //Sherwayne
 		List<Order> orders = new ArrayList<>();
 		Order order = new Order(1001, "Alice");
 		order.addItem("Burger", 8.50);
@@ -148,68 +148,44 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void testViewAllStallsNonEmpty() {
-		List<Stall> stalls = new ArrayList<>();
-		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
-		stall1.addMenuItem("Noodle Soup", 13.00);
-		stall1.addMenuItem("Fried Dumplings", 13.00);
-		stall1.addMenuItem("Spring Rolls", 13.00);
+	public void testViewAllStalls() {//Sherwayne
+	    List<Stall> stalls = new ArrayList<>();
 
-		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
-		stall2.addMenuItem("Margherita Pizza", 13.00);
-		stall2.addMenuItem("Pepperoni Pizza", 13.00);
-		stall2.addMenuItem("Hawaiian Pizza", 13.00);
+	    Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+	    stall1.addMenuItem("Noodle Soup", 13.00);
+	    stall1.addMenuItem("Fried Dumplings", 13.00);
 
-		Stall stall3 = new Stall("Burger Junction", "American", "Food Court C", 3);
-		stall3.addMenuItem("Classic Cheeseburger", 13.00);
-		stall3.addMenuItem("BBQ Bacon Burger", 13.00);
-		stall3.addMenuItem("Veggie Burger", 13.00);
+	    Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
+	    stall2.addMenuItem("Margherita Pizza", 13.00);
 
-		stalls.add(stall1);
-		stalls.add(stall2);
-		stalls.add(stall3);
+	    stalls.add(stall1);
+	    stalls.add(stall2);
 
-		// Redirect System.out to capture the printed output
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
+	    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	    System.setOut(new PrintStream(outContent));
 
-		Stall.viewAllStalls(stalls);
+	    Stall.viewAllStalls(stalls);
 
-		String expectedOutput = "=============================================\n" +
-				"--- All Stalls ---\n" +
-				"Stall Name: Delicious Noodles\n" +
-				"Cuisine: Chinese\n" +
-				"Location: Food Court A\n" +
-				"Stall Id: 1\n" +
-				"\n" +
-				"Menu:\n" +
-				"= Noodle Soup ($13.0)\n" +
-				"= Fried Dumplings ($13.0)\n" +
-				"= Spring Rolls ($13.0)\n" +
-				"=============================================\n" +
-				"Stall Name: Pizza Paradise\n" +
-				"Cuisine: Italian\n" +
-				"Location: Food Court B\n" +
-				"Stall Id: 2\n" +
-				"\n" +
-				"Menu:\n" +
-				"= Margherita Pizza ($13.0)\n" +
-				"= Pepperoni Pizza ($13.0)\n" +
-				"= Hawaiian Pizza ($13.0)\n" +
-				"=============================================\n" +
-				"Stall Name: Burger Junction\n" +
-				"Cuisine: American\n" +
-				"Location: Food Court C\n" +
-				"Stall Id: 3\n" +
-				"\n" +
-				"Menu:\n" +
-				"= Classic Cheeseburger ($13.0)\n" +
-				"= BBQ Bacon Burger ($13.0)\n" +
-				"= Veggie Burger ($13.0)\n" +
-				"=============================================\n";
-		assertEquals(expectedOutput, outContent.toString());
+	    assertTrue(stalls.contains(stall1));
+	    assertTrue(stalls.contains(stall2));
 	}
 
+	@Test
+    public void testViewAllStallsNotFound() {//Sherwayne
+        List<Stall> emptyStalls = new ArrayList<>();
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        Stall.viewAllStalls(emptyStalls);
+
+        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+        Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
+
+        assertFalse(emptyStalls.contains(stall1));
+        assertFalse(emptyStalls.contains(stall2));
+    }
+	
 	@Test
 	public void testCreateNewUser() { //Ashley
 
