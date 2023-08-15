@@ -68,23 +68,22 @@ public class C206_CaseStudy {
 
 		while (!exitProgram) {
 			System.out.println("\n--- Food Court Management System ---");
-			System.out.println("1. Create a new order");
-			System.out.println("2. View all orders");
-			System.out.println("3. Delete an existing order");
-			System.out.println("4. Add a new stall");
-			System.out.println("5. View all stalls");
-			System.out.println("6. Delete an existing stall");
-			System.out.println("7. Queue for multiple stalls");
-			System.out.println("8. View queued stalls");
-			System.out.println("9. Leave the queue");
-			System.out.println("10. Create a user account");
-			System.out.println("11. Delete an existing user");
-			System.out.println("12. View all users");
-			System.out.println("13. Pay for an order");
-			System.out.println("14. Feedback");
-			System.out.println("15. Edit stall Menu");
+			System.out.println("1. View all stalls");
+			System.out.println("2. Create a new order");
+			System.out.println("3. View all orders");
+			System.out.println("4. Delete an existing order");
+			System.out.println("5. Queue for multiple stalls");
+			System.out.println("6. View queued stalls");
+			System.out.println("7. Leave the queue");
+			System.out.println("8. Pay for an order");
+			System.out.println("9. Feedback");
+			System.out.println("10. Add a new stall");
+			System.out.println("11. Edit stall Menu");
+			System.out.println("12. Delete an existing stall");
+			System.out.println("13. Create a user account");
+			System.out.println("14. Delete an existing user");
+			System.out.println("15. View all users");
 			System.out.println("0. Exit");
-
 			System.out.print("Enter your choice: ");
 			int choice = scanner.nextInt();
 			scanner.nextLine(); // Consume the newline character after reading the choice
@@ -96,61 +95,61 @@ public class C206_CaseStudy {
 			}
 
 			switch (choice) {
-			case 1:
-				Stall.viewAllStalls(stalls);
-				Order.createNewOrder(orders, scanner);
-				break;
-			case 2:
-				Order.viewAllOrders(orders);
-				break;
-			case 3:
-				Order.deleteExistingOrder(orders, scanner);
-				break;
-			case 4:
-				Stall.addNewStall(stalls, scanner);
-				break;
-			case 5:
-				Stall.viewAllStalls(stalls);
-				break;
-			case 6:
-				Stall.deleteExistingStall(stalls, scanner);
-				break;
-			case 7:
-				Queue.queueForMultipleStalls(customerQueue, stalls, scanner);
-				break;
-			case 8:
-				Queue.viewQueuedStalls(customerQueue);
-				break;
-			case 9:
-				Queue.leaveQueue(customerQueue, scanner);
-				break;
-			case 10:
-				User.createNewUser(users, scanner);
-				break;
-			case 11:
-				User.deleteExistingUser(users, scanner);
-				break;
-			case 12:
-				User.viewAllUsers(users);
-				break;
-			case 13:
-				Order.payOrder(orders, scanner);
-				break;
-			case 14:
-				feedbackMenu(loggedInUser, feedback, scanner);
-				break;
-			case 15: 
-			    manageStallMenu(scanner);
-			    break;
-			case 0:
-				exitProgram = true;
-				break;
-			default:
-				System.out.println("Invalid choice. Please try again.");
-			}
-		}
-		System.out.println("Exiting the program. Thank you for using the Food Court Management System!");
-	}
+            case 1:
+                Stall.viewAllStalls(stalls);
+                break;
+            case 2:
+                Order.createNewOrder(orders, scanner);
+                break;
+            case 3:
+                Order.viewAllOrders(orders);
+                break;
+            case 4:
+                Order.deleteExistingOrder(orders, scanner);
+                break;
+            case 5:
+                Queue.queueForMultipleStalls(customerQueue, stalls, scanner);
+                break;
+            case 6:
+                Queue.viewQueuedStalls(customerQueue);
+                break;
+            case 7:
+                Queue.leaveQueue(customerQueue, scanner);
+                break;
+            case 8:
+                Order.payOrder(orders, scanner);
+                break;
+            case 9:
+                feedbackMenu(loggedInUser, feedback, scanner);
+                break;
+            case 10:
+                Stall.addNewStall(stalls, scanner);
+                break;
+            case 11:
+                manageStallMenu(scanner);
+                break;
+            case 12:
+                Stall.deleteExistingStall(stalls, scanner);
+                break;
+            case 13:
+                User.createNewUser(users, scanner);
+                break;
+            case 14:
+                User.deleteExistingUser(users, scanner);
+                break;
+            case 15:
+                User.viewAllUsers(users);
+                break;
+            case 0:
+                exitProgram = true;
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+    }
+    
+    System.out.println("Exiting the program. Thank you for using the Food Court Management System!");
+}
 
 	// Helper method to perform login
 	public static String login(List<User> users, Scanner scanner) {
@@ -181,7 +180,7 @@ public class C206_CaseStudy {
 		}
 
 		if (currentUser == null) {
-			return choice >= 0 && choice <= 3 || choice == 5 || choice >= 7 && choice <= 9 || choice == 13 || choice ==14; // Default access for guests
+			return choice >= 0 && choice <= 8;// Default access for guests
 		}
 
 		// Determine the role of the current user and apply role-based access control
@@ -191,9 +190,9 @@ public class C206_CaseStudy {
 			// For other roles, apply the existing access control logic
 			switch (currentUser.getRole()) {
 			case "customer":
-				return choice >= 0 && choice <= 3 || choice ==5 || choice >=7 && choice <=9 || choice == 13 || choice ==14; 
+				return choice >= 0 && choice <= 9; 
 			case "stall owner":
-				return choice  ==0 || choice >= 4 && choice < 6 || choice == 15;
+				return choice  ==0 || choice >= 11 && choice <12;
 			default:
 				System.out.println("Invalid role");
 				return false; // Unknown role
