@@ -34,6 +34,10 @@ public class Stall {
 	}
 
 	public void addMenuItem(String itemName, double itemPrice) {
+	    if (itemName.trim().isEmpty() || itemPrice < 0) {
+	        throw new IllegalArgumentException("Invalid item name or price");
+	    }
+
 	    MenuItem item = new MenuItem(itemName, itemPrice);
 	    menu.add(item);
 	}

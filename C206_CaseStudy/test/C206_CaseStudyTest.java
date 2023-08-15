@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.awt.Menu;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -16,6 +17,7 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+
 
     @Before
     public void setUpStreams() {
@@ -116,6 +118,19 @@ public class C206_CaseStudyTest {
 		assertEquals(10.00, stall.getMenu().get(0).getPrice(), 0.001);
 	}
 
+	@Test
+    public void testAddMenuItemWithInvalidValues() {//Sherwayne
+        Stall stall = new Stall("Test Stall", "Test Cuisine", "Test Location", 1);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            stall.addMenuItem("", 10.0); // Empty name, should throw an exception
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            stall.addMenuItem("Item Name", -5.0); // Negative price, should throw an exception
+        });
+    }
+	
 	@Test
 	public void testRemoveMenuItem() {//Sherwayne
 		Stall stall = new Stall("Test Stall", "Test Cuisine", "Test Location", 1);
