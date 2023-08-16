@@ -364,7 +364,7 @@ public class C206_CaseStudyTest {
 
 
 	@Test
-	public void testViewQueuedStallsEmptyQueue() { //Adawia
+	public void testViewQueuedStallsEmptyQueue() { //Adawia & Jun Yang
 	    Queue customerQueue = new Queue();
 
 	    List<Stall> expectedStalls = new ArrayList<>(); // Empty list since the queue is empty
@@ -375,7 +375,7 @@ public class C206_CaseStudyTest {
 	}
 
     @Test
-    public void testLeaveQueue() { // Adawia & Jun Yang
+    public void testLeaveQueue() { // Adawia
         Queue customerQueue = new Queue();
         Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
 

@@ -33,7 +33,7 @@ public class Queue {
 
 		boolean queueMoreStalls = true;
 		while (queueMoreStalls) {
-			System.out.print("Enter the number of the stall to queue (or 0 to stop queuing): ");
+			System.out.print("Enter stall number to queue (Enter 0 to stop queuing): ");
 			int stallNumber = scanner.nextInt();
 			scanner.nextLine(); // Consume the newline character
 
@@ -71,7 +71,7 @@ public class Queue {
 			return;
 		}
 
-		System.out.print("Enter the number of the stall to leave the queue: ");
+		System.out.print("Enter stall number to leave queue: ");
 		int stallNumber = scanner.nextInt();
 		scanner.nextLine(); // Consume the newline character
 
