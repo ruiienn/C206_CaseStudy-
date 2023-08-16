@@ -96,7 +96,12 @@ public class C206_CaseStudyTest {
 
 		assertTrue(orders.contains(order1));
 		assertTrue(orders.contains(order2));
+		assertNotNull("Test that if there is valid order arraylist to add to", orders = new ArrayList<>());
+		assertEquals("Test that if the order arraylist is empty", 0, orders.size());
+		Order.viewAllOrders(orders);
 
+
+		
 
 	}
 
@@ -411,7 +416,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void testAddStall() {
+	public void testAddStall() { //Lai Suan
 		List<Stall> stalls = new ArrayList<>();
 		String input = "Test Stall\nTest Cuisine\nTest Location\n123\nTest Item 1\n10.00\ndone\n";
 		InputStream inputStream = new ByteArrayInputStream(input.getBytes());
@@ -437,7 +442,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void testDeleteStall() {
+	public void testDeleteStall() {// LaiSuan
 		List<Stall> stalls = new ArrayList<>();
 		stalls.add(new Stall("Delicious Noodles", "Chinese", "Food Court A", 1));
 		stalls.add(new Stall("Pizza Paradise", "Italian", "Food Court B", 2));
