@@ -56,6 +56,7 @@ public class C206_CaseStudyTest {
 		assertNotNull(order);
 		assertEquals("John Doe", order.getCustomerName());
 		assertFalse(order.isPaid());
+		assertFalse(order.getItems().isEmpty());
 		assertEquals(1, order.getItems().size());
 		assertTrue(order.getItems().contains("Pizza"));
 	}
