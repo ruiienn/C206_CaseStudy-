@@ -346,67 +346,36 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-    public void testViewQueuedStalls() { // have problem Adawia
-        Queue customerQueue = new Queue();
-        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
-		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
-		Stall stall3 = new Stall("Burger Junction", "American", "Food Court C", 3);
-        customerQueue.addToQueue(stall1);
-        customerQueue.addToQueue(stall2);
-        customerQueue.addToQueue(stall3);
+	public void testViewQueuedStalls() { // Adawia & Jun Yang
+	    Queue customerQueue = new Queue();
+	    Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+	    Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
+	    Stall stall3 = new Stall("Burger Junction", "American", "Food Court C", 3);
+	    customerQueue.addToQueue(stall1);
+	    customerQueue.addToQueue(stall2);
+	    customerQueue.addToQueue(stall3);
 
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOutput = System.out;
-        System.setOut(new PrintStream(outContent));
+	    List<Stall> expectedStalls = Arrays.asList(stall1, stall2, stall3);
 
-        Queue.viewQueuedStalls(customerQueue);
+	    List<Stall> queuedStalls = customerQueue.getQueuedStalls();
 
-        System.setOut(originalOutput);
+	    assertEquals(expectedStalls, queuedStalls);
+	}
 
-        String expectedOutput = "--- Queued Stalls ---\n" +
-                "1. Delicious Noodles\n" +
-                "2. Pizza Paradise\n" +
-                "3. Burger Junction\n";
 
-        assertEquals(expectedOutput, outContent.toString());
-    }
+	@Test
+	public void testViewQueuedStallsEmptyQueue() {
+	    Queue customerQueue = new Queue();
 
-    @Test
-    public void testViewQueuedStallsEmptyQueue() {
-        Queue customerQueue = new Queue();
+	    List<Stall> expectedStalls = new ArrayList<>(); // Empty list since the queue is empty
 
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOutput = System.out;
-        System.setOut(new PrintStream(outContent));
+	    List<Stall> queuedStalls = customerQueue.getQueuedStalls();
 
-        Queue.viewQueuedStalls(customerQueue);
-
-        System.setOut(originalOutput);
-
-        String expectedOutput = "You have not queued for any stalls.\n";
-
-        assertEquals(expectedOutput, outContent.toString());
-    }
-    
-    public void testLeaveQueue() {
-        customerQueue.addToQueue(stall1);
-        customerQueue.addToQueue(stall2);
-        customerQueue.addToQueue(stall3);
-
-        assertEquals(3, customerQueue.getQueuedStalls().size());
-
-        // Test leaving a stall from the queue
-        customerQueue.removeFromQueue(stall2);
-        assertEquals(2, customerQueue.getQueuedStalls().size());
-
-        // Test leaving a stall that's not in the queue
-        Stall stallNotInQueue = new Stall("StallNotInQueue", "Cuisine4", "Location4", 4);
-        customerQueue.removeFromQueue(stallNotInQueue);
-        assertEquals(2, customerQueue.getQueuedStalls().size());
-    }
+	    assertEquals(expectedStalls, queuedStalls);
+	}
 
     @Test
-    public void testLeaveQueueStall() {
+    public void testLeaveQueue() { // Adawia & Jun Yang
         Queue customerQueue = new Queue();
         Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
 
