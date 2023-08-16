@@ -16,28 +16,28 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-    private Queue customerQueue;
-    private Stall stall1;
-    private Stall stall2;
-    private Stall stall3;
+	private final PrintStream originalOut = System.out;
+	private Queue customerQueue;
+	private Stall stall1;
+	private Stall stall2;
+	private Stall stall3;
 
 
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-    @Before
-    public void setUp() {
-        customerQueue = new Queue();
-        stall1 = new Stall("Stall1", "Cuisine1", "Location1", 1);
-        stall2 = new Stall("Stall2", "Cuisine2", "Location2", 2);
-        stall3 = new Stall("Stall3", "Cuisine3", "Location3", 3);
-    }
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
+	@Before
+	public void setUpStreams() {
+		System.setOut(new PrintStream(outContent));
+	}
+	@Before
+	public void setUp() {
+		customerQueue = new Queue();
+		stall1 = new Stall("Stall1", "Cuisine1", "Location1", 1);
+		stall2 = new Stall("Stall2", "Cuisine2", "Location2", 2);
+		stall3 = new Stall("Stall3", "Cuisine3", "Location3", 3);
+	}
+	@After
+	public void restoreStreams() {
+		System.setOut(originalOut);
+	}
 
 	@Test
 	public void testCreateNewOrder() { //Sheena
@@ -76,7 +76,7 @@ public class C206_CaseStudyTest {
 		// Verifying that the order has been deleted
 		assertEquals(1, orders.size());
 		assertNotEquals(0, orders.size());
-		
+
 	}
 
 	@Test
@@ -93,9 +93,9 @@ public class C206_CaseStudyTest {
 		System.setOut(new PrintStream(outContent)); 
 
 		Order.viewAllOrders(orders);
-		
+
 		assertTrue(orders.contains(order1));
-	    assertTrue(orders.contains(order2));
+		assertTrue(orders.contains(order2));
 
 
 	}
@@ -130,18 +130,18 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-    public void testAddMenuItemWithInvalidValues() {//Sherwayne
-        Stall stall = new Stall("Test Stall", "Test Cuisine", "Test Location", 1);
+	public void testAddMenuItemWithInvalidValues() {//Sherwayne
+		Stall stall = new Stall("Test Stall", "Test Cuisine", "Test Location", 1);
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            stall.addMenuItem("", 10.0); // Empty name, should throw an exception
-        });
+		assertThrows(IllegalArgumentException.class, () -> {
+			stall.addMenuItem("", 10.0); // Empty name, should throw an exception
+		});
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            stall.addMenuItem("Item Name", -5.0); // Negative price, should throw an exception
-        });
-    }
-	
+		assertThrows(IllegalArgumentException.class, () -> {
+			stall.addMenuItem("Item Name", -5.0); // Negative price, should throw an exception
+		});
+	}
+
 	@Test
 	public void testRemoveMenuItem() {//Sherwayne
 		Stall stall = new Stall("Test Stall", "Test Cuisine", "Test Location", 1);
@@ -167,115 +167,115 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void testViewAllStalls() {//Sherwayne
-	    List<Stall> stalls = new ArrayList<>();
+		List<Stall> stalls = new ArrayList<>();
 
-	    Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
-	    stall1.addMenuItem("Noodle Soup", 13.00);
-	    stall1.addMenuItem("Fried Dumplings", 13.00);
+		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+		stall1.addMenuItem("Noodle Soup", 13.00);
+		stall1.addMenuItem("Fried Dumplings", 13.00);
 
-	    Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
-	    stall2.addMenuItem("Margherita Pizza", 13.00);
+		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
+		stall2.addMenuItem("Margherita Pizza", 13.00);
 
-	    stalls.add(stall1);
-	    stalls.add(stall2);
+		stalls.add(stall1);
+		stalls.add(stall2);
 
-	    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
 
-	    Stall.viewAllStalls(stalls);
+		Stall.viewAllStalls(stalls);
 
-	    assertTrue(stalls.contains(stall1));
-	    assertTrue(stalls.contains(stall2));
+		assertTrue(stalls.contains(stall1));
+		assertTrue(stalls.contains(stall2));
 	}
 
 	@Test
-    public void testViewAllStallsNotFound() {//Sherwayne
-        List<Stall> emptyStalls = new ArrayList<>();
+	public void testViewAllStallsNotFound() {//Sherwayne
+		List<Stall> emptyStalls = new ArrayList<>();
 
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
 
-        Stall.viewAllStalls(emptyStalls);
+		Stall.viewAllStalls(emptyStalls);
 
-        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
-        Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
+		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
 
-        assertFalse(emptyStalls.contains(stall1));
-        assertFalse(emptyStalls.contains(stall2));
-    }
-	
+		assertFalse(emptyStalls.contains(stall1));
+		assertFalse(emptyStalls.contains(stall2));
+	}
+
 	@Test
-	  public void testCreateNewUser() { //Ashley
+	public void testCreateNewUser() { //Ashley
 
-	      String input = "Tom\nspiderman12\ndone\n"; 
-	      InputStream testIn = new ByteArrayInputStream(input.getBytes());
-	      System.setIn(testIn);
+		String input = "Tom\nspiderman12\ndone\n"; 
+		InputStream testIn = new ByteArrayInputStream(input.getBytes());
+		System.setIn(testIn);
 
-	      List<User> users = new ArrayList<>();
-	      users.add(new User("Tom", "spiderman12","customer"));
-	      Scanner scanner = new Scanner(System.in);
+		List<User> users = new ArrayList<>();
+		users.add(new User("Tom", "spiderman12","customer"));
+		Scanner scanner = new Scanner(System.in);
 
-	      User.createNewUser(users, scanner);
+		User.createNewUser(users, scanner);
 
-	      assertEquals(1, users.size()); 
-	      
-	      User user = users.get(0);
-	      assertNotNull(user);
-	      assertEquals("Tom", user.getUsername());
-	      assertEquals("spiderman12", user.getPassword());
-	      assertNotEquals("man", user.getUsername());
-	  }
+		assertEquals(1, users.size()); 
 
-	  @Test
-	  public void testDeleteExistingUser() { //Ashley
+		User user = users.get(0);
+		assertNotNull(user);
+		assertEquals("Tom", user.getUsername());
+		assertEquals("spiderman12", user.getPassword());
+		assertNotEquals("man", user.getUsername());
+	}
 
-	    String input = "Tom\ndelete\n";
-	    InputStream testIn = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(testIn);
+	@Test
+	public void testDeleteExistingUser() { //Ashley
 
-	    List<User> users = new ArrayList<>();
-	    users.add(new User("Tom", "spiderman12","customer")); // Add a user for testing
+		String input = "Tom\ndelete\n";
+		InputStream testIn = new ByteArrayInputStream(input.getBytes());
+		System.setIn(testIn);
 
-	    Scanner scanner = new Scanner(System.in);
+		List<User> users = new ArrayList<>();
+		users.add(new User("Tom", "spiderman12","customer")); // Add a user for testing
 
-	    User.deleteExistingUser(users, scanner);
+		Scanner scanner = new Scanner(System.in);
 
-	    assertEquals(0, users.size()); // Expecting user to be deleted
-	    assertNotEquals(1,users.size()); // user not deleted
-	    assertNotNull(users); // make sure there is something to delete
-	  }
-	  
-		@Test //Ashley
-		public void testViewAllUsers() {
-		 List<User> users = new ArrayList<>();
+		User.deleteExistingUser(users, scanner);
 
-		 User user1 = new User("millie", "password123", "customer");
-		 User user2 = new User("Bobby", "secret456", "admin");
+		assertEquals(0, users.size()); // Expecting user to be deleted
+		assertNotEquals(1,users.size()); // user not deleted
+		assertNotNull(users); // make sure there is something to delete
+	}
 
-		 users.add(user1);
-		 users.add(user2);
+	@Test //Ashley
+	public void testViewAllUsers() {
+		List<User> users = new ArrayList<>();
 
-		 ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		 System.setOut(new PrintStream(outContent));
+		User user1 = new User("millie", "password123", "customer");
+		User user2 = new User("Bobby", "secret456", "admin");
 
-		 viewAllUsers(users); 
+		users.add(user1);
+		users.add(user2);
 
-		  System.setOut(System.out);
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
 
-		
-		 assertNotNull(users.contains(user1));   
-		 assertTrue(users.contains(user1));
-		 assertTrue(users.contains(user2));
-		 
-		 }
- 
-		 private void viewAllUsers(List<User> users) {
-		 System.out.println("All Users:");
-		 for (User user : users) {
-		     System.out.println("Name: " + user.getUsername() + ", Role: " + user.getRole());
-		     }
-		 }
-		
+		viewAllUsers(users); 
+
+		System.setOut(System.out);
+
+
+		assertNotNull(users.contains(user1));   
+		assertTrue(users.contains(user1));
+		assertTrue(users.contains(user2));
+
+	}
+
+	private void viewAllUsers(List<User> users) {
+		System.out.println("All Users:");
+		for (User user : users) {
+			System.out.println("Name: " + user.getUsername() + ", Role: " + user.getRole());
+		}
+	}
+
 
 	@Test
 	public void testAddFeedback() {//kai
@@ -306,21 +306,21 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void testViewFeedback() {//kai
-	    Feedback feedback = new Feedback();
-	    feedback.addFeedback("John", "Great service!");
-	    feedback.addFeedback("Alice", "Delicious food!");
+		Feedback feedback = new Feedback();
+		feedback.addFeedback("John", "Great service!");
+		feedback.addFeedback("Alice", "Delicious food!");
 
-	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outputStream));
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outputStream));
 
-	    feedback.viewFeedback();
-	    String actualOutput = outputStream.toString().trim(); // Trim trailing newline
+		feedback.viewFeedback();
+		String actualOutput = outputStream.toString().trim(); // Trim trailing newline
 
-	    assertTrue(actualOutput.contains("Feedback 1: John: Great service!"));
-	    assertTrue(actualOutput.contains("Feedback 2: Alice: Delicious food!"));
+		assertTrue(actualOutput.contains("Feedback 1: John: Great service!"));
+		assertTrue(actualOutput.contains("Feedback 2: Alice: Delicious food!"));
 	}
 
-	 
+
 
 	@Test
 	public void testQueueForMultipleStalls() { // Adawia
@@ -348,65 +348,104 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void testViewQueuedStalls() { // Adawia & Jun Yang
-	    Queue customerQueue = new Queue();
-	    Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
-	    Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
-	    Stall stall3 = new Stall("Burger Junction", "American", "Food Court C", 3);
-	    customerQueue.addToQueue(stall1);
-	    customerQueue.addToQueue(stall2);
-	    customerQueue.addToQueue(stall3);
+		Queue customerQueue = new Queue();
+		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
+		Stall stall3 = new Stall("Burger Junction", "American", "Food Court C", 3);
+		customerQueue.addToQueue(stall1);
+		customerQueue.addToQueue(stall2);
+		customerQueue.addToQueue(stall3);
 
-	    List<Stall> expectedStalls = Arrays.asList(stall1, stall2, stall3);
+		List<Stall> expectedStalls = Arrays.asList(stall1, stall2, stall3);
 
-	    List<Stall> queuedStalls = customerQueue.getQueuedStalls();
+		List<Stall> queuedStalls = customerQueue.getQueuedStalls();
 
-	    assertEquals(expectedStalls, queuedStalls);
+		assertEquals(expectedStalls, queuedStalls);
 	}
 
 
 	@Test
 	public void testViewQueuedStallsEmptyQueue() { //Adawia & Jun Yang
-	    Queue customerQueue = new Queue();
+		Queue customerQueue = new Queue();
 
-	    List<Stall> expectedStalls = new ArrayList<>(); // Empty list since the queue is empty
+		List<Stall> expectedStalls = new ArrayList<>(); // Empty list since the queue is empty
 
-	    List<Stall> queuedStalls = customerQueue.getQueuedStalls();
+		List<Stall> queuedStalls = customerQueue.getQueuedStalls();
 
-	    assertEquals(expectedStalls, queuedStalls);
+		assertEquals(expectedStalls, queuedStalls);
 	}
 
-    @Test
-    public void testLeaveQueue() { // Adawia
-        Queue customerQueue = new Queue();
-        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
+	@Test
+	public void testLeaveQueue() { // Adawia
+		Queue customerQueue = new Queue();
+		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
 
-        // Set up custom InputStream to simulate user input
-        String input = "1\n";
-        InputStream testIn = new ByteArrayInputStream(input.getBytes());
-        System.setIn(testIn);
+		// Set up custom InputStream to simulate user input
+		String input = "1\n";
+		InputStream testIn = new ByteArrayInputStream(input.getBytes());
+		System.setIn(testIn);
 
-        Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 
-        Queue.leaveQueue(customerQueue, scanner);
+		Queue.leaveQueue(customerQueue, scanner);
 
-        // Verify that the method handles a stall not in the queue correctly
-        // Assertions for messages and queue state
-    }
+		// Verify that the method handles a stall not in the queue correctly
+		// Assertions for messages and queue state
+	}
 
-    @Test
-    public void testLeaveQueueEmptyQueue() { //Adawia
-        Queue customerQueue = new Queue();
+	@Test
+	public void testLeaveQueueEmptyQueue() { //Adawia
+		Queue customerQueue = new Queue();
 
-        // Set up custom InputStream to simulate user input
-        String input = "1\n";
-        InputStream testIn = new ByteArrayInputStream(input.getBytes());
-        System.setIn(testIn);
+		// Set up custom InputStream to simulate user input
+		String input = "1\n";
+		InputStream testIn = new ByteArrayInputStream(input.getBytes());
+		System.setIn(testIn);
 
-        Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 
-        Queue.leaveQueue(customerQueue, scanner);
+		Queue.leaveQueue(customerQueue, scanner);
 
-        // Verify that the method handles an empty queue correctly
-        // Assertions for messages and queue state
-    }
+		// Verify that the method handles an empty queue correctly
+		// Assertions for messages and queue state
+	}
+
+	@Test
+	public void testAddStall() {
+		List<Stall> stalls = new ArrayList<>();
+		String input = "Test Stall\nTest Cuisine\nTest Location\n123\nTest Item 1\n10.00\ndone\n";
+		InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+		Scanner scanner = new Scanner(inputStream);
+
+		String name = scanner.nextLine();
+		String cuisine = scanner.nextLine();
+		String location = scanner.nextLine();
+		int stallId = Integer.parseInt(scanner.nextLine());
+		Stall newStall = new Stall(name, cuisine, location, stallId);
+
+		// Add the new stall to the stalls list
+		stalls.add(newStall);
+
+		assertEquals(1, stalls.size());
+
+		Stall addedStall = stalls.get(0);
+		assertEquals("Test Stall", addedStall.getName());
+		assertEquals("Test Cuisine", addedStall.getCuisine());
+		assertEquals("Test Location", addedStall.getLocation());
+		assertEquals(123, addedStall.getStallId()); // Fixed stallId
+
+	}
+
+	@Test
+	public void testDeleteStall() {
+		List<Stall> stalls = new ArrayList<>();
+		stalls.add(new Stall("Delicious Noodles", "Chinese", "Food Court A", 1));
+		stalls.add(new Stall("Pizza Paradise", "Italian", "Food Court B", 2));
+
+		Scanner scanner = new Scanner("Delicious Noodles\n");
+		Stall.deleteExistingStall(stalls, scanner);
+
+		assertEquals(1, stalls.size());
+		assertEquals("Pizza Paradise", stalls.get(0).getName());
+	}
 }

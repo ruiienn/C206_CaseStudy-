@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -5,13 +6,16 @@ public class User {
 	private String username;
 	private String password;
 	private String role; // "customer", "stall owner", "administrator"s
-
+	
+	
 	public User(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		
 	}
 
+	
 	public String getUsername() {
 		return username;
 	}
@@ -23,7 +27,8 @@ public class User {
 	public String getRole() {
 		return role;
 	}
-
+    
+	
 	// Make the methods public and static
 	public static void createNewUser(List<User> users, Scanner scanner) {
 		System.out.print("Enter Username: ");
