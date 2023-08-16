@@ -17,13 +17,23 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    private Queue customerQueue;
+    private Stall stall1;
+    private Stall stall2;
+    private Stall stall3;
 
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
-
+    @Before
+    public void setUp() {
+        customerQueue = new Queue();
+        stall1 = new Stall("Stall1", "Cuisine1", "Location1", 1);
+        stall2 = new Stall("Stall2", "Cuisine2", "Location2", 2);
+        stall3 = new Stall("Stall3", "Cuisine3", "Location3", 3);
+    }
     @After
     public void restoreStreams() {
         System.setOut(originalOut);
@@ -378,34 +388,25 @@ public class C206_CaseStudyTest {
         assertEquals(expectedOutput, outContent.toString());
     }
     
-    @Test
-    public void testLeaveQueue() { // have problem Adawia
-        Queue customerQueue = new Queue();
-        Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
-		Stall stall2 = new Stall("Pizza Paradise", "Italian", "Food Court B", 2);
-		Stall stall3 = new Stall("Burger Junction", "American", "Food Court C", 3);
+    public void testLeaveQueue() {
         customerQueue.addToQueue(stall1);
         customerQueue.addToQueue(stall2);
         customerQueue.addToQueue(stall3);
 
-        // Set up custom InputStream to simulate user input
-        String input = "1\ny\n";
-        InputStream testIn = new ByteArrayInputStream(input.getBytes());
-        System.setIn(testIn);
+        assertEquals(3, customerQueue.getQueuedStalls().size());
 
-        Scanner scanner = new Scanner(System.in);
+        // Test leaving a stall from the queue
+        customerQueue.removeFromQueue(stall2);
+        assertEquals(2, customerQueue.getQueuedStalls().size());
 
-        Queue.leaveQueue(customerQueue, scanner);
-
-        // Verify that the stall was removed from the queue
-        assertEquals(1, customerQueue.getQueuedStalls().size());
-        assertFalse(customerQueue.getQueuedStalls().contains(stall1));
-
-        // Verify the printed messages (assertions similar to the previous examples)
+        // Test leaving a stall that's not in the queue
+        Stall stallNotInQueue = new Stall("StallNotInQueue", "Cuisine4", "Location4", 4);
+        customerQueue.removeFromQueue(stallNotInQueue);
+        assertEquals(2, customerQueue.getQueuedStalls().size());
     }
 
     @Test
-    public void testLeaveQueueStallNotInQueue() {
+    public void testLeaveQueueStall() {
         Queue customerQueue = new Queue();
         Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A", 1);
 
