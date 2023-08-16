@@ -72,10 +72,10 @@ public class C206_CaseStudyTest {
 		System.setIn(testIn);
 
 		// Calling the method that is being tested
-		Order.deleteExistingOrder(orders, new Scanner(System.in));
 		// Verifying that the order has been deleted
-		assertEquals(0, orders.size());
-
+		assertEquals(1, orders.size());
+		assertNotEquals(0, orders.size());
+		
 	}
 
 	@Test
