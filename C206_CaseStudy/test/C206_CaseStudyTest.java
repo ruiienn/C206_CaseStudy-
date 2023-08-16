@@ -79,7 +79,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	public void testViewAllOrders() {
+	public void testViewAllOrders() { //Sheena
 		List<Order> orders = new ArrayList<>();
 
 		Order order1 = new Order(1234, "Sheena");
@@ -244,7 +244,7 @@ public class C206_CaseStudyTest {
 	    assertNotNull(users); // make sure there is something to delete
 	  }
 	  
-		@Test
+		@Test //Ashley
 		public void testViewAllUsers() {
 		 List<User> users = new ArrayList<>();
 
@@ -364,7 +364,7 @@ public class C206_CaseStudyTest {
 
 
 	@Test
-	public void testViewQueuedStallsEmptyQueue() {
+	public void testViewQueuedStallsEmptyQueue() { //Adawia
 	    Queue customerQueue = new Queue();
 
 	    List<Stall> expectedStalls = new ArrayList<>(); // Empty list since the queue is empty
@@ -393,7 +393,7 @@ public class C206_CaseStudyTest {
     }
 
     @Test
-    public void testLeaveQueueEmptyQueue() {
+    public void testLeaveQueueEmptyQueue() { //Adawia
         Queue customerQueue = new Queue();
 
         // Set up custom InputStream to simulate user input

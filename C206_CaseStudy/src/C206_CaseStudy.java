@@ -43,7 +43,7 @@ public class C206_CaseStudy {
 			}
 		}
 
-		// Create some example stalls
+		// Create some example stalls 
 		Stall stall1 = new Stall("Delicious Noodles", "Chinese", "Food Court A",1);
 		stall1.addMenuItem("Noodle Soup",13.00);
 		stall1.addMenuItem("Fried Dumplings",13.00);
@@ -152,7 +152,7 @@ public class C206_CaseStudy {
 }
 
 	// Helper method to perform login
-	public static String login(List<User> users, Scanner scanner) {
+	public static String login(List<User> users, Scanner scanner) { //Jun Yang
 		System.out.print("Enter Username: ");
 		String username = scanner.nextLine();
 
@@ -169,7 +169,7 @@ public class C206_CaseStudy {
 	}
 
 	// Helper method to check user authorization
-	public static boolean isAuthorized(String username, int choice) {
+	public static boolean isAuthorized(String username, int choice) { //Jun Yang
 		// Find the user with the given username in the list of users
 		User currentUser = null;
 		for (User user : users) {
@@ -202,11 +202,11 @@ public class C206_CaseStudy {
 	}
 
 	// Helper method to read a string input
-	public static String readString(String prompt, Scanner scanner) {
+	public static String readString(String prompt, Scanner scanner) { 
 		System.out.print(prompt);
 		return scanner.nextLine();
 	}
-	 private static void feedbackMenu(String loggedInUser, Feedback feedback, Scanner scanner) { 
+	 private static void feedbackMenu(String loggedInUser, Feedback feedback, Scanner scanner) { //Kai
 	     boolean exitFeedbackMenu = false; 
 	     while (!exitFeedbackMenu) { 
 	         System.out.println("\n--- Feedback Menu ---"); 
@@ -262,7 +262,7 @@ public class C206_CaseStudy {
 	         } 
 	     } 
 	 } 
-	 private static void manageStallMenu(Scanner scanner) {
+	 private static void manageStallMenu(Scanner scanner) { //Jun Yang
 		    // Display available stalls
 		    System.out.println("--- Select a Stall ---");
 		    Stall.viewAllStalls(stalls);
@@ -302,7 +302,7 @@ public class C206_CaseStudy {
 		    }
 		}
 
-		private static void addMenuItemToStall(Stall stall, Scanner scanner) {
+		private static void addMenuItemToStall(Stall stall, Scanner scanner) { //Jun Yang
 		    System.out.print("Enter Menu Item Name: ");
 		    String itemName = scanner.nextLine();
 
@@ -314,7 +314,7 @@ public class C206_CaseStudy {
 		    System.out.println("Menu item added successfully.");
 		}
 
-		private static void removeMenuItemFromStall(Stall stall, Scanner scanner) {
+		private static void removeMenuItemFromStall(Stall stall, Scanner scanner) {//Jun Yang
 		    System.out.print("Enter Menu Item Name to Remove: ");
 		    String itemName = scanner.nextLine();
 
