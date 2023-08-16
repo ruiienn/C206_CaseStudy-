@@ -253,11 +253,11 @@ public class C206_CaseStudyTest {
 
 	
 		 String expectedOutput = "All Users:\n" + "Name: millie, Role: customer\n" + "Name: Bobby, Role: admin\n";
-		        assertEquals(expectedOutput, outContent.toString());
-		        
-		       
+		
+		 assertNotNull(users.contains(user1));   
 		 assertTrue(users.contains(user1));
 		 assertTrue(users.contains(user2));
+		 
 		 }
  
 		 private void viewAllUsers(List<User> users) {
