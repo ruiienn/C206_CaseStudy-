@@ -251,8 +251,6 @@ public class C206_CaseStudyTest {
 
 		  System.setOut(System.out);
 
-	
-		 String expectedOutput = "All Users:\n" + "Name: millie, Role: customer\n" + "Name: Bobby, Role: admin\n";
 		
 		 assertNotNull(users.contains(user1));   
 		 assertTrue(users.contains(user1));
